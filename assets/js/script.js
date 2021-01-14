@@ -7,15 +7,17 @@ $(window).on('load', function() {
 
     $(".description").each(function() {
         var hourColor = this.id;
-            if (hourColor < hour) {
-                $(this).addClass("past");
-            } else if (hourColor > hour) {
-                $(this).addClass("future");
-            } else {
-                $(this).addClass("present");
-            }
+        if (hourColor < hour) {
+            $(this).addClass("past");
+        } else if (hourColor > hour) {
+            $(this).addClass("future");
+        } else {
+            $(this).addClass("present");
+        }
     })
-    
+
+    window.setInterval(hourCheck, 60000);
+
 loadDesc();
 
 });
@@ -87,3 +89,21 @@ $("#saveBtn17").on("click", function() {
     var descText = $("#17").val();
     localStorage.setItem("description-17", descText);
 });
+
+function hourCheck() {
+    var now = moment();
+    var hour = moment(now).format("HH");
+    var minute = moment(now).format("mm");
+    if(minute = 01) {
+        $(".description").each(function() {
+            var hourColor = this.id;
+            if (hourColor < hour) {
+                $(this).addClass("past");
+            } else if (hourColor > hour) {
+                $(this).addClass("future");
+            } else {
+                $(this).addClass("present");
+            }
+        });
+    };
+};
